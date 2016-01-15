@@ -1,0 +1,37 @@
+{
+  "name": "ufds/librest",
+  "description": "UFDS standard rest api",
+  "license": "UFDS privat",
+  "config": {
+    "platform": {
+      "php": "5.3.10"
+    }
+  },
+
+  "require": {
+    "ufds/libutil": "dev-master",
+    "ufds/libcommon": "dev-master",
+    "ufds/libssoclient": "dev-master"
+  },
+
+  "require-dev": {
+    "ruckusing/ruckusing-migrations": "dev-master",
+    "ufds/libtypes": "dev-master",
+    "ufds/libdatabase": "dev-master"
+  },
+
+  "repositories": [
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/libutil.git"},
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/libcommon.git"},
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/libssoclient.git"},
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/libdatabase.git"},
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/ruckusing-migrations.git"},
+    { "type": "vcs", "url": "http://dev.ufds.lan/git/libtypes.git"}
+  ],
+
+  "autoload": {
+    "classmap": ["rest/"]
+  }
+
+}
+
