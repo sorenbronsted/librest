@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43034f3545bd0d25a49dbae35bc31973",
-    "content-hash": "74615903849ea7f3123f31e887c4e691",
+    "hash": "2c9fe8f844e85c6852e559fe3ad2db95",
+    "content-hash": "4dc1a0d3b44f015fa12cc3d47a182b47",
     "packages": [
         {
             "name": "ufds/libcommon",
@@ -33,7 +33,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libssoclient.git",
-                "reference": "60a2c661eebc35245698601b859e3fefea418a6c"
+                "reference": "fa60df0431349f31aaaeb6ae7a038ce81eccc70f"
             },
             "require": {
                 "ufds/libcommon": "dev-master",
@@ -49,7 +49,7 @@
                 "UFDS privat"
             ],
             "description": "CLient interface to Single Sign On (SSO)",
-            "time": "2016-03-17 09:20:41"
+            "time": "2016-03-18 13:03:29"
         },
         {
             "name": "ufds/libutil",
@@ -57,7 +57,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libutil.git",
-                "reference": "d47a062d18ff96a9cf97367fe5bc7a3645d8dd6b"
+                "reference": "2acfdc712724bce695ddbc50f28ed8b8d90d42a1"
             },
             "type": "library",
             "autoload": {
@@ -72,7 +72,7 @@
                 "UFDS privat"
             ],
             "description": "Package of utils",
-            "time": "2016-03-17 08:59:25"
+            "time": "2016-03-23 15:07:57"
         }
     ],
     "packages-dev": [
@@ -137,7 +137,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libdatabase.git",
-                "reference": "329ddac371e5729183c3d89f93321d5337a22064"
+                "reference": "18b75a4ba0bb9b6e8d411e49816fe2523e1467be"
             },
             "require": {
                 "ruckusing/ruckusing-migrations": "1.1.0",
@@ -155,7 +155,7 @@
                 "UFDS privat"
             ],
             "description": "Generel ORM mapper baseret på PDO",
-            "time": "2016-03-15 13:43:27"
+            "time": "2016-03-23 14:47:50"
         },
         {
             "name": "ufds/libtypes",
@@ -163,7 +163,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libtypes.git",
-                "reference": "418deb77ab2e1807060caa9a74d8db70d1d407fb"
+                "reference": "bf39e69ac73625708744eb1c03cec670c29d27b0"
             },
             "require": {
                 "ufds/libcommon": "dev-master"
@@ -178,7 +178,7 @@
                 "UFDS privat"
             ],
             "description": "UFDS standard types",
-            "time": "2016-03-17 08:54:20"
+            "time": "2016-03-23 13:19:38"
         }
     ],
     "aliases": [],

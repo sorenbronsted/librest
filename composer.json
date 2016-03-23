@@ -16,7 +16,6 @@
   },
 
   "require-dev": {
-    "ruckusing/ruckusing-migrations": "1.1.0",
     "ufds/libtypes": "dev-master",
     "ufds/libdatabase": "dev-master"
   },
