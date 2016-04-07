@@ -189,7 +189,9 @@ class Rest {
   private static function authorize() {
     try {
       $dic = DiContainer::instance();
-      $dic->sso->challengeCookie($dic->sso_cookieName);
+      if (isset($dic->sso)) {
+        $dic->sso->challengeCookie($dic->sso_cookieName);
+      }
     }
     catch (NotAuthorizedException $e) {
       throw new AccessDeniedException();
