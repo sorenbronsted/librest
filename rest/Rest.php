@@ -5,6 +5,7 @@ class Rest {
   private $arg;
   private $cls;
   private $uid;
+	private static $dic;
   private static $allowedMethods = array("get", "delete", "post");
 
   /**
@@ -36,10 +37,10 @@ class Rest {
   }
 
   public static function run($server, $request) {
-    $dic = DiContainer::instance();
+    self::$dic = DiContainer::instance();
     try {
-      $dic->header->out('Content-type: application/json');
-      $dic->log->debug(__CLASS__, "request: ".str_replace("\n", '', var_export($request, true)));
+      self::$dic->header->out('Content-type: application/json');
+      self::$dic->log->debug(__CLASS__, "request: ".str_replace("\n", '', var_export($request, true)));
 
       $requestMethod = strtolower($server['REQUEST_METHOD']);
 
@@ -49,6 +50,7 @@ class Rest {
       if (isset($request['_'])) {
         unset($request['_']);
       }
+	    self::$dic->log->debug(__CLASS__, "requestmethod: $requestMethod uri: ".$server['REQUEST_URI']);
       self::authorize();
       $rest = new Rest($server['REQUEST_URI'], $request);
       $result = $rest->$requestMethod();
@@ -61,13 +63,13 @@ class Rest {
       return json_encode(array("error" => $e->getMessage()));
     }
     catch(RuntimeException $e) {
-      $dic->log->error(__CLASS__, $e->getMessage());
-	    $dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
+      self::$dic->log->error(__CLASS__, $e->getMessage());
+	    self::$dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
     }
     catch(ErrorException $e) {
-      $dic->log->error(__CLASS__, $e->getMessage());
-      $dic->log->error(__CLASS__, $e->getTraceAsString());
-      $dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
+      self::$dic->log->error(__CLASS__, $e->getMessage());
+      self::$dic->log->error(__CLASS__, $e->getTraceAsString());
+      self::$dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
     }
   }
 
@@ -134,19 +136,32 @@ class Rest {
 	  $clazz = $this->cls;
     $object = null;
 
-    if (isset($this->uid)) {
-      $object = $clazz::getByUid($this->uid);
-    }
-    else {
-      $object = new $clazz();
-    }
-	  $object->setData($this->arg);
-    $object->save();
+	  // Method case
+    if (isset($this->arg["method"])) {
+			$result = array();
+			if(isset($this->uid)) {
+				$object = $clazz::getByUid($this->uid);
+				$result = $this->callMethod($object);
+			}
+			else {
+				$result = $this->callStatic();
+			}
+			return $result;
+		}
+
+	  // Object case
+		if (isset($this->uid)) {
+			$object = $clazz::getByUid($this->uid);
+		}
+		else {
+			$object = new $clazz();
+		}
+		$object->setData($this->arg);
+		$object->save();
     return (object)array("uid" => $object->uid);
   }
 
   private function parseUri() {
-		DiContainer::instance()->log->debug(__CLASS__, "uri: $this->uri");
     if (empty($this->uri)) {
       throw new ErrorException("Invalid uri $this->uri");
     }
@@ -188,9 +203,9 @@ class Rest {
 
   private static function authorize() {
     try {
-      $dic = DiContainer::instance();
-      if (isset($dic->sso)) {
-        $dic->sso->challengeCookie($dic->sso_cookieName);
+      self::$dic = DiContainer::instance();
+      if (isset(self::$dic->sso)) {
+        self::$dic->sso->challengeCookie(self::$dic->sso_cookieName);
       }
     }
     catch (NotAuthorizedException $e) {

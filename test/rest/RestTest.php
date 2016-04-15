@@ -35,13 +35,21 @@ class RestTest extends PHPUnit_Framework_TestCase {
 	  $result = $rest->post();
 
 	  $rest = new Rest('/rest/Sample/'.$result->uid, array('method' => 'objectEcho', 'mesg' => 'Goodbye'));
-	  $result = $rest->get();
-	  $this->assertEquals('Goodbye', $result->mesg);
+	  $result1 = $rest->get();
+	  $this->assertEquals('Goodbye', $result1->mesg);
+
+	  $rest = new Rest('/rest/Sample/'.$result->uid, array('method' => 'objectEcho', 'mesg' => 'Goodbye'));
+	  $result2 = $rest->post();
+	  $this->assertEquals('Goodbye', $result2->mesg);
   }
   
   public function testStaticMethod() {
 	  $rest = new Rest('/rest/Sample', array('method' => 'staticEcho', 'mesg' => 'Hello'));
 	  $result = $rest->get();
+	  $this->assertEquals('Hello', $result->mesg);
+
+	  $rest = new Rest('/rest/Sample', array('method' => 'staticEcho', 'mesg' => 'Hello'));
+	  $result = $rest->post();
 	  $this->assertEquals('Hello', $result->mesg);
   }
   
