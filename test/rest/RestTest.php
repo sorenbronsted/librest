@@ -34,21 +34,21 @@ class RestTest extends PHPUnit_Framework_TestCase {
 	  $rest = new Rest('/rest/Sample', array());
 	  $result = $rest->post();
 
-	  $rest = new Rest('/rest/Sample/'.$result->uid, array('method' => 'objectEcho', 'mesg' => 'Goodbye'));
+	  $rest = new Rest('/rest/Sample/'.$result->uid.'/objectEcho', array('mesg' => 'Goodbye'));
 	  $result1 = $rest->get();
 	  $this->assertEquals('Goodbye', $result1->mesg);
 
-	  $rest = new Rest('/rest/Sample/'.$result->uid, array('method' => 'objectEcho', 'mesg' => 'Goodbye'));
+	  $rest = new Rest('/rest/Sample/'.$result->uid.'/objectEcho', array('mesg' => 'Goodbye'));
 	  $result2 = $rest->post();
 	  $this->assertEquals('Goodbye', $result2->mesg);
   }
   
   public function testStaticMethod() {
-	  $rest = new Rest('/rest/Sample', array('method' => 'staticEcho', 'mesg' => 'Hello'));
+	  $rest = new Rest('/rest/Sample/staticEcho', array('mesg' => 'Hello'));
 	  $result = $rest->get();
 	  $this->assertEquals('Hello', $result->mesg);
 
-	  $rest = new Rest('/rest/Sample', array('method' => 'staticEcho', 'mesg' => 'Hello'));
+	  $rest = new Rest('/rest/Sample/staticEcho', array('mesg' => 'Hello'));
 	  $result = $rest->post();
 	  $this->assertEquals('Hello', $result->mesg);
   }

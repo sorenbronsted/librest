@@ -5,24 +5,24 @@ class Rest {
   private $arg;
   private $cls;
   private $uid;
+	private $method;
 	private static $dic;
   private static $allowedMethods = array("get", "delete", "post");
 
   /**
    * The uri can have the following forms:
    * 
-   * /rest/class/uid                            returns a object by the given object or delete it
+   * /rest/class/uid            returns a object by the given object or delete it
    * 
-   * /rest/class/uid?method=method_name         which returns the result of calling the method
-   *                                            on the object specified by the uid
+   * /rest/class/uid/method     which returns the result of calling the method
+   *                            on the object specified by the uid. Parameters to method are parsed as paramters
    *                                            
-   * /rest/class?method=method_name             which returns the result of calling the static method
-   *                                            on the class
+   * /rest/class/method         which returns the result of calling the static method on the class
    *                                            
-   * /rest/class?name=value...                  which return an array of objects which all qualifies with
-   *                                            the name-value pair set
+   * /rest/class?name=value&... which return an array of objects which all qualifies with
+   *                            the name-value pair set
    *                                            
-   * /rest/class                                will return object of the given cls or create or update it
+   * /rest/class                will return object of the given cls or create or update it
    */
   public function __construct($uri, array $arg = array()) {
     set_error_handler(array(__CLASS__, 'throwError'), E_ALL | E_STRICT);
@@ -82,7 +82,7 @@ class Rest {
       if (!$result) {
         throw new ErrorException("No object found for uid: $this->uri");
       }
-      if (count($this->arg) > 0 && isset($this->arg['method'])) {
+      if (isset($this->method)) {
 	      $result = $this->callMethod($result);
       }
     }
@@ -106,7 +106,7 @@ class Rest {
     	}
     	
       if (count($this->arg) > 0) {
-        if (array_key_exists("method", $this->arg)) {
+        if (isset($this->method)) {
           $result = $this->callStatic();
         }
         else {
@@ -137,7 +137,7 @@ class Rest {
     $object = null;
 
 	  // Method case
-    if (isset($this->arg["method"])) {
+    if (isset($this->method)) {
 			$result = array();
 			if(isset($this->uid)) {
 				$object = $clazz::getByUid($this->uid);
@@ -169,7 +169,7 @@ class Rest {
     $uri = preg_split("/\?/", $this->uri); // split argument from uri
     $tmp = preg_split("/\//", $uri[0]);    // split the uri into parts
 
-    if (count($tmp) < 2 || count($tmp) > 4) {
+    if (count($tmp) < 2 || count($tmp) > 5) {
       throw new ErrorException("Invalid uri $this->uri");
     }
     
@@ -180,24 +180,29 @@ class Rest {
 	  }
 
     if (count($tmp) > 3) {
-      $this->uid = $tmp[3];
+	    if (is_numeric($tmp[3])) {
+		    $this->uid = $tmp[3];
+	    }
+	    else {
+		    $this->method = $tmp[3];
+	    }
     }
+
+	  if (count($tmp) > 4) {
+		  $this->method = $tmp[4];
+	  }
   }
   
   private function callStatic() {
-    $name = $this->arg["method"];
-    unset($this->arg["method"]);
     $inspect = new ReflectionClass($this->cls);
-    $method = $inspect->getMethod($name);
+    $method = $inspect->getMethod($this->method);
     return $method->invokeArgs(null, $this->arg);
   }
 
   private function callMethod($object) {
-    $name = $this->arg["method"];
-    unset($this->arg["method"]);
     $cls = get_class($object);
     $inspect = new ReflectionClass($cls);
-    $method = $inspect->getMethod($name);
+    $method = $inspect->getMethod($this->method);
     return $method->invokeArgs($object, $this->arg);
   }
 
