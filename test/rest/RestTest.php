@@ -88,6 +88,7 @@ class RestTest extends PHPUnit_Framework_TestCase {
 		$rest = new Rest('/rest/Sample', array('name' => 'kurt'));
 		$result = $rest->post();
 		$this->assertGreaterThan(0, $result->uid);
+
 		// Update
 		$rest = new Rest('/rest/Sample/'.$result->uid, array('name' => 'Yrsa'));
 		$result = $rest->post();

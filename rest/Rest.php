@@ -169,8 +169,8 @@ class Rest {
     $uri = preg_split("/\?/", $this->uri); // split argument from uri
     $tmp = preg_split("/\//", $uri[0]);    // split the uri into parts
 
-    if (count($tmp) < 2 || count($tmp) > 5) {
-      throw new ErrorException("Invalid uri $this->uri");
+    if (count($tmp) <= 2 || count($tmp) > 5) {
+      throw new ErrorException("Invalid url $this->uri");
     }
     
     $this->cls = $tmp[2];
@@ -179,17 +179,24 @@ class Rest {
 			throw new RuntimeException($this->cls.' does not implement RestEnable');
 	  }
 
-    if (count($tmp) > 3) {
-	    if (is_numeric($tmp[3])) {
-		    $this->uid = $tmp[3];
-	    }
-	    else {
-		    $this->method = $tmp[3];
-	    }
-    }
-
-	  if (count($tmp) > 4) {
-		  $this->method = $tmp[4];
+	  switch (count($tmp)) {
+		  case 3:
+				// Allready done
+			  break;
+		  case 4:
+				if ($inspect->hasMethod($tmp[3])) {
+					$this->method = $tmp[3];
+				}
+				else {
+					$this->uid = $tmp[3];
+				}
+			  break;
+		  case 5:
+				$this->uid = $tmp[3];
+				$this->method = $tmp[4];
+			  break;
+		  default:
+			  throw new RuntimeException("url is to long");
 	  }
   }
   
