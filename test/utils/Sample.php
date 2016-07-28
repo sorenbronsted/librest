@@ -1,6 +1,6 @@
 <?php
 
-class Sample extends DbObject implements RestEnable {
+class Sample extends DbObject implements RestEnable, JsonEnable {
 	private static $properties = array(
 		'uid' => Property::INT,
 		'name' => Property::STRING,
@@ -21,5 +21,10 @@ class Sample extends DbObject implements RestEnable {
 
 	protected function getProperties() {
 		return self::$properties;
+	}
+
+	public function onJsonEncode(array $data) {
+		$data['xtra'] = 'added';
+		return $data;
 	}
 }
