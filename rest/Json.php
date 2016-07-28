@@ -21,7 +21,11 @@ class Json {
 			if ($item instanceof JsonEnable) {
 				$data = $item->onJsonEncode($data);
 			}
-			return '{"'.get_class($item).'":'.json_encode($data).'}';
+			$tmp = array();
+			foreach($data as $key => $value) {
+				$tmp[$key] = (is_object($value) ? strval($value) : $value);
+			}
+			return '{"'.get_class($item).'":'.json_encode($tmp).'}';
 		}
 		else if ($item instanceof stdclass) {
 			return json_encode($item);

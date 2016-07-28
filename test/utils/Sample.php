@@ -24,7 +24,7 @@ class Sample extends DbObject implements RestEnable, JsonEnable {
 	}
 
 	public function onJsonEncode(array $data) {
-		$data['xtra'] = 'added';
+		$data['date'] = Date::parse('01-11-2011');
 		return $data;
 	}
 }

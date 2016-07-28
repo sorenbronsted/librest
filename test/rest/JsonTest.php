@@ -23,6 +23,6 @@ class JsonTest extends PHPUnit_Framework_TestCase {
 
 	public function testJsonEnable() {
 		$o = new Sample();
-		$this->assertEquals('{"Sample":{"uid":0,"name":null,"xtra":"added"}}', Json::encode($o));
+		$this->assertEquals('{"Sample":{"uid":0,"name":null,"date":"2011-11-01"}}', Json::encode($o));
 	}
 }
