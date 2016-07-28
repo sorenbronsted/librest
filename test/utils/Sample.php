@@ -1,14 +1,10 @@
 <?php
 
-class Sample extends DbObject implements JsonEnable, RestEnable {
+class Sample extends DbObject implements RestEnable {
 	private static $properties = array(
 		'uid' => Property::INT,
 		'name' => Property::STRING,
 	);
-
-	public function jsonEncode() {
-		return json_encode($this->getData());
-	}
 
 	public static function createSchema() {
 		$sql = "create table sample(uid integer primary key autoincrement, name varchar(20))";
