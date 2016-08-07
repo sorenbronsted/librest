@@ -104,18 +104,16 @@ class Rest {
     			unset($this->arg[$x]);
     		}
     	}
-    	
-      if (count($this->arg) > 0) {
-        if (isset($this->method)) {
-          $result = $this->callStatic();
-        }
-        else {
-            $result = $clazz::getBy($this->arg, empty($arguments) ? array() : array($arguments));
-        }
-      }
-      else {
-        $result = $clazz::getAll(empty($arguments) ? array() : array($arguments));
-      }
+
+	    if (isset($this->method)) {
+		    $result = $this->callStatic();
+	    }
+	    else if (count($this->arg) > 0) {
+		    $result = $clazz::getBy($this->arg, empty($arguments) ? array() : array($arguments));
+	    }
+	    else {
+		    $result = $clazz::getAll(empty($arguments) ? array() : array($arguments));
+	    }
     }
     return $result;
   }
