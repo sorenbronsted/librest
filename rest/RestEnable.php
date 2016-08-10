@@ -1,4 +1,5 @@
 <?php
+namespace ufds;
 
 /**
  * Interface RestEnable are methods required for makeing an object rest enable

@@ -1,9 +1,7 @@
 <?php
+namespace ufds;
 
-$loader = require '../vendor/autoload.php'; // Use composer autoloading
-$loader->addClassMap(array( // Add you own classes here
-	'YourClass' => 'somewhere/YourClass.php',
-));
+require '../vendor/autoload.php'; // Use composer autoloading
 
 date_default_timezone_set("Europe/Copenhagen");
 openlog("your-maske", LOG_PID | LOG_CONS, LOG_LOCAL0); // Requires LOG_LOCAL0 configured

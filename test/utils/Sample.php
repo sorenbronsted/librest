@@ -1,4 +1,5 @@
 <?php
+namespace ufds;
 
 class Sample extends DbObject implements RestEnable, JsonEnable {
 	private static $properties = array(
@@ -23,7 +24,7 @@ class Sample extends DbObject implements RestEnable, JsonEnable {
 		return self::$properties;
 	}
 
-	public function onJsonEncode(array $data) {
+	public function jsonEncode(array $data) {
 		$data['date'] = Date::parse('01-11-2011');
 		return $data;
 	}

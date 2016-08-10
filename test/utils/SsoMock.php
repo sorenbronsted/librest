@@ -1,4 +1,6 @@
 <?php
+namespace ufds;
+
 require 'vendor/autoload.php';
 
 class SsoMock {

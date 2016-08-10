@@ -1,4 +1,5 @@
 <?php
+namespace ufds;
 
 class HeaderMock {
 	public function out($text) {

@@ -1,4 +1,5 @@
 <?php
+namespace ufds;
 
 class Store {
 	private static $cache = array();

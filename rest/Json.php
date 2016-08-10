@@ -1,4 +1,7 @@
 <?php
+namespace ufds;
+
+use stdClass;
 
 class Json {
 	public static function encode($item) {
@@ -19,19 +22,19 @@ class Json {
 		else if ($item instanceof DbObject) {
 			$data = $item->getData();
 			if ($item instanceof JsonEnable) {
-				$data = $item->onJsonEncode($data);
+				$data = $item->jsonEncode($data);
 			}
 			$tmp = array();
 			foreach($data as $key => $value) {
 				$tmp[$key] = (is_object($value) ? strval($value) : $value);
 			}
-			return '{"'.get_class($item).'":'.json_encode($tmp).'}';
+			return '{"'.$item->getClass().'":'.json_encode($tmp).'}';
 		}
 		else if ($item instanceof stdclass) {
 			return json_encode($item);
 		}
 		else if ($item instanceof JsonEnable) {
-			return $item->jsonEncode();
+			return $item->jsonEncode([]);
 		}
 		else {
 			return json_encode($item);

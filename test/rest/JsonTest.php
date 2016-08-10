@@ -1,4 +1,9 @@
 <?php
+namespace ufds;
+
+use PHPUnit_Framework_TestCase;
+use stdClass;
+
 require 'test/settings.php';
 
 class JsonTest extends PHPUnit_Framework_TestCase {

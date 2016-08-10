@@ -1,4 +1,8 @@
 <?php
+namespace ufds;
+
+use PHPUnit_Framework_TestCase;
+
 require_once 'test/settings.php';
 
 class RestTest extends PHPUnit_Framework_TestCase {

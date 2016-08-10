@@ -1,4 +1,9 @@
 <?php
+namespace ufds;
+
+use ErrorException;
+use ReflectionClass;
+use RuntimeException;
 
 class Rest {
   private $uri;
@@ -29,7 +34,7 @@ class Rest {
     
     $this->uri = $uri;
     $this->arg = $arg;
-    $this->parseUri($uri);
+    $this->parseUri();
   }
   
   public static function throwError($errno, $errstr, $errfile = "", $errline = 0, $errcontext = null) {
@@ -171,9 +176,9 @@ class Rest {
       throw new ErrorException("Invalid url $this->uri");
     }
     
-    $this->cls = $tmp[2];
+    $this->cls = 'ufds\\'.$tmp[2]; //TODO consider that class contains namespace also eg. ufds/Sample
 	  $inspect = new ReflectionClass($this->cls);
-	  if (!in_array('RestEnable', $inspect->getInterfaceNames())) {
+	  if (!in_array('ufds\RestEnable', $inspect->getInterfaceNames())) {
 			throw new RuntimeException($this->cls.' does not implement RestEnable');
 	  }
 

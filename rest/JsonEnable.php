@@ -1,4 +1,5 @@
 <?php
+namespace ufds;
 
 interface JsonEnable {
 	/**
@@ -6,5 +7,5 @@ interface JsonEnable {
 	 * @param array $data
 	 * @return array
 	 */
-	public function onJsonEncode(array $data);
+	public function jsonEncode(array $data);
 }

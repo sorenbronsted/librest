@@ -4,9 +4,13 @@
   "license": "UFDS privat",
   "config": {
     "platform": {
-      "php": "5.3.10"
+      "php": "5.4"
     },
     "secure-http": false
+  },
+
+  "autoload": {
+    "psr-4": { "ufds\\": ["rest/"] }
   },
 
   "require": {
@@ -17,20 +21,17 @@
 
   "require-dev": {
     "ufds/libtypes": "dev-master",
+    "ruckusing/ruckusing-migrations": "dev-master",
     "ufds/libdatabase": "dev-master"
   },
 
   "repositories": [
+    { "type": "vcs", "url": "http://dev/git/ufds/ruckusing-migrations.git"},
     { "type": "vcs", "url": "http://dev/git/ufds/libutil.git"},
     { "type": "vcs", "url": "http://dev/git/ufds/libcommon.git"},
     { "type": "vcs", "url": "http://dev/git/ufds/libssoclient.git"},
     { "type": "vcs", "url": "http://dev/git/ufds/libdatabase.git"},
     { "type": "vcs", "url": "http://dev/git/ufds/libtypes.git"}
-  ],
-
-  "autoload": {
-    "classmap": ["rest/"]
-  }
-
+  ]
 }
 
