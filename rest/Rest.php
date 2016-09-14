@@ -3,6 +3,7 @@ namespace ufds;
 
 use ErrorException;
 use ReflectionClass;
+use ReflectionMethod;
 use RuntimeException;
 
 class Rest {
@@ -206,6 +207,7 @@ class Rest {
   private function callStatic() {
     $inspect = new ReflectionClass($this->cls);
     $method = $inspect->getMethod($this->method);
+	  $this->orderArguments($method);
     return $method->invokeArgs(null, $this->arg);
   }
 
@@ -213,10 +215,25 @@ class Rest {
     $cls = get_class($object);
     $inspect = new ReflectionClass($cls);
     $method = $inspect->getMethod($this->method);
+	  $this->orderArguments($method);
     return $method->invokeArgs($object, $this->arg);
   }
 
-  private static function authorize() {
+	private function orderArguments(ReflectionMethod $method) {
+		$result = [];
+		foreach ($method->getParameters() as $parameter) {
+			$name = $parameter->getName();
+			if (isset($this->arg[$name])) {
+				$result[$name] = $this->arg[$name];
+			}
+			else {
+				$result[$name] = null;
+			}
+		}
+		$this->arg = $result;
+	}
+
+	private static function authorize() {
     try {
       self::$dic = DiContainer::instance();
       if (isset(self::$dic->sso)) {
