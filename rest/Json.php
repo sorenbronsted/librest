@@ -30,7 +30,7 @@ class Json {
 			}
 			return '{"'.$item->getClass().'":'.json_encode($tmp).'}';
 		}
-		else if ($item instanceof stdclass) {
+		else if ($item instanceof stdClass) {
 			return json_encode($item);
 		}
 		else if ($item instanceof JsonEnable) {
