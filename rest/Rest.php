@@ -154,8 +154,9 @@ class Rest {
 		}
 
 	  // Object case
-		if (isset($this->uid)) {
-			$object = $clazz::getByUid($this->uid);
+		if (isset($this->arg['uid']) || isset($this->uid)) {
+			$uid = isset($this->arg['uid']) ? $this->arg['uid'] : $this->uid;
+			$object = $clazz::getByUid($uid);
 		}
 		else {
 			$object = new $clazz();
