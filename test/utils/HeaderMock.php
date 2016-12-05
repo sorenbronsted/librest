@@ -2,7 +2,9 @@
 namespace ufds;
 
 class HeaderMock {
+	public $sent;
+
 	public function out($text) {
-		DiContainer::instance()->log->debug(__CLASS__, $text);
+		$this->sent = $text;
 	}
 }

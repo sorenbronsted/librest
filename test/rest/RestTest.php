@@ -24,6 +24,8 @@ class RestTest extends PHPUnit_Framework_TestCase {
 		$request = array('name' => 'kurt');
 		$json = Rest::run($server, $request);
 		$this->assertStringStartsWith('{"uid":', $json);
+		$dic = DiContainer::instance();
+		$this->assertStringEndsWith('application/json', $dic->header->sent);
 		$result = json_decode($json);
 
 		$server['REQUEST_METHOD'] = 'GET';
