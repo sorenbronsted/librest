@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1ba6cf3ef271c1a36ca369deed98954b",
-    "content-hash": "94e57da1ade4b0fe9b61ca8517e67648",
+    "hash": "9c2cb2d76489ba8c075bc838d64d66cf",
+    "content-hash": "80b90eb5d5562c8bbedf1e2cec50fa35",
     "packages": [
         {
             "name": "ufds/libcommon",
@@ -13,7 +13,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libcommon.git",
-                "reference": "cf0a0134a3595341352a4c72b05e62b0d02d0635"
+                "reference": "88444a99a82e12ca55f68450612b879de8f690f8"
             },
             "type": "library",
             "autoload": {
@@ -27,15 +27,15 @@
                 "UFDS privat"
             ],
             "description": "UFDS common library",
-            "time": "2016-08-10 11:17:09"
+            "time": "2016-10-25 10:11:45"
         },
         {
             "name": "ufds/libssoclient",
-            "version": "dev-master",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libssoclient.git",
-                "reference": "4cd3dc1a0a3434407633c780db970a34d5d287a3"
+                "reference": "fe19093f5e68c66cc9ecb4ba29a1fe83d2f8d5a5"
             },
             "require": {
                 "ufds/libcommon": "dev-master",
@@ -144,7 +144,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libdatabase.git",
-                "reference": "29a27bff39fead2dcb2fd8bb84c36615950663c0"
+                "reference": "e3be20c09a0cc08aa7f06b238e827e9d9e8af2f0"
             },
             "require": {
                 "ruckusing/ruckusing-migrations": "dev-master",
@@ -162,7 +162,7 @@
                 "UFDS privat"
             ],
             "description": "Generel ORM mapper baseret på PDO",
-            "time": "2016-08-10 11:55:17"
+            "time": "2016-12-08 09:47:37"
         },
         {
             "name": "ufds/libtypes",
@@ -170,7 +170,7 @@
             "source": {
                 "type": "git",
                 "url": "http://dev/git/ufds/libtypes.git",
-                "reference": "29f189d6c8002f3de3e8a6fa7ea12e2865d2e87f"
+                "reference": "f9a7f946682fb034ccbfb8e8c81e8b49bf06db20"
             },
             "require": {
                 "ufds/libcommon": "dev-master"
@@ -187,7 +187,7 @@
                 "UFDS privat"
             ],
             "description": "UFDS standard types",
-            "time": "2016-08-10 08:30:07"
+            "time": "2016-12-01 10:06:52"
         }
     ],
     "aliases": [],
@@ -195,7 +195,6 @@
     "stability-flags": {
         "ufds/libutil": 20,
         "ufds/libcommon": 20,
-        "ufds/libssoclient": 20,
         "ufds/libtypes": 20,
         "ruckusing/ruckusing-migrations": 20,
         "ufds/libdatabase": 20

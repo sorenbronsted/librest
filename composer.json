@@ -16,7 +16,7 @@
   "require": {
     "ufds/libutil": "dev-master",
     "ufds/libcommon": "dev-master",
-    "ufds/libssoclient": "dev-master"
+    "ufds/libssoclient": "1.0.5"
   },
 
   "require-dev": {
