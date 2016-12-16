@@ -68,15 +68,6 @@ class Rest {
     catch (ApplicationException $e) {
       return json_encode(array("error" => $e->getMessage()));
     }
-    catch(RuntimeException $e) {
-      self::$dic->log->error(__CLASS__, $e->getMessage());
-	    self::$dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
-    }
-    catch(ErrorException $e) {
-      self::$dic->log->error(__CLASS__, $e->getMessage());
-      self::$dic->log->error(__CLASS__, $e->getTraceAsString());
-      self::$dic->header->out($server['SERVER_PROTOCOL']. " 500 ".$e->getMessage());
-    }
   }
 
   public function get() {
@@ -235,14 +226,13 @@ class Rest {
 	}
 
 	private static function authorize() {
-    try {
-      self::$dic = DiContainer::instance();
-      if (isset(self::$dic->sso)) {
-        self::$dic->sso->challengeCookie(self::$dic->sso_cookieName);
-      }
-    }
-    catch (NotAuthorizedException $e) {
-      throw new AccessDeniedException();
+    if (self::$dic->restAuthenticator != null) {
+	    if (!self::$dic->restAuthenticator instanceof AuthenticatorEnable) {
+		    throw new RuntimeException('Must implement AuthenticatorEnable');
+	    }
+	    if (!self::$dic->restAuthenticator->hasAccess()) {
+		    throw new RuntimeException('Access denied');
+	    }
     }
   }
 

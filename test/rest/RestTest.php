@@ -2,6 +2,7 @@
 namespace ufds;
 
 use PHPUnit_Framework_TestCase;
+use RuntimeException;
 
 require_once 'test/settings.php';
 
@@ -119,6 +120,26 @@ class RestTest extends PHPUnit_Framework_TestCase {
 		}
 		catch(NotFoundException $e) {
 			$this->assertEquals('Sample not found', $e->getMessage());
+		}
+	}
+
+	public function testAuthentification() {
+		$dic = DiContainer::instance();
+		$this->assertTrue($dic->restAuthenticator->hasAccess());
+
+		$server = array(
+			'SERVER_PROTOCOL' => 'HTTP 1.1',
+			'REQUEST_METHOD' => 'GET',
+			'REQUEST_URI' => '/rest/Sample',
+		);
+		Rest::run($server, array());
+
+		$dic->restAuthenticator->retval = false;
+		try {
+			Rest::run($server, array());
+		}
+		catch (RuntimeException $e) {
+			$this->assertEquals('Access denied', $e->getMessage());
 		}
 	}
 }

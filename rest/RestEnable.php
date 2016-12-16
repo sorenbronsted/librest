@@ -39,4 +39,10 @@ interface RestEnable {
 	 * @return map with the uid
 	 */
 	public function save();
+
+	/**
+	 * Delete a given object
+	 * @return none
+	 */
+	public function destroy();
 }

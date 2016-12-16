@@ -15,13 +15,12 @@
 
   "require": {
     "ufds/libutil": "dev-master",
-    "ufds/libcommon": "dev-master",
-    "ufds/libssoclient": "1.0.5"
+    "ufds/libcommon": "dev-master"
   },
 
   "require-dev": {
-    "ufds/libtypes": "dev-master",
     "ruckusing/ruckusing-migrations": "dev-master",
+    "ufds/libtypes": "dev-master",
     "ufds/libdatabase": "dev-master"
   },
 
