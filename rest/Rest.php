@@ -134,7 +134,7 @@ class Rest {
 	  // Method case
     if (isset($this->method)) {
 			$result = array();
-			if(isset($this->uid)) {
+			if(isset($this->uid) && $this->uid > 0) {
 				$object = $clazz::getByUid($this->uid);
 				$result = $this->callMethod($object);
 			}
@@ -145,13 +145,17 @@ class Rest {
 		}
 
 	  // Object case
+	  $uid = 0;
 		if (isset($this->arg['uid']) || isset($this->uid)) {
 			$uid = isset($this->arg['uid']) ? $this->arg['uid'] : $this->uid;
+		}
+		if ($uid > 0) {
 			$object = $clazz::getByUid($uid);
 		}
 		else {
 			$object = new $clazz();
 		}
+
 		$object->setData($this->arg);
 		$object->save();
     return (object)array("uid" => $object->uid);
