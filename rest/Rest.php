@@ -134,7 +134,7 @@ class Rest {
 	  // Method case
     if (isset($this->method)) {
 			$result = array();
-			if(isset($this->uid) && $this->uid > 0) {
+			if(isset($this->uid) && !empty($this->uid)) {
 				$object = $clazz::getByUid($this->uid);
 				$result = $this->callMethod($object);
 			}
