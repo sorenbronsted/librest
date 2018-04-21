@@ -43,6 +43,10 @@ class Rest {
   }
 
   public static function run($server, $request) {
+  	if (!preg_match('#/rest/#', $server['REQUEST_URI'])) {
+  		throw new RuntimeException('The uri must contain path element rest: '.$server['REQUEST_URI']);
+	  }
+
     self::$dic = DiContainer::instance();
     try {
       self::$dic->header->out('Content-type: application/json');
@@ -56,9 +60,16 @@ class Rest {
       if (isset($request['_'])) {
         unset($request['_']);
       }
-	    self::$dic->log->debug(__CLASS__, "requestmethod: $requestMethod uri: ".$server['REQUEST_URI']);
+      // eat of uri until we have an 'rest' part, which is the root part
+      $parts = explode('/', $server['REQUEST_URI']);
+      while ($parts[0] != 'rest') {
+      	array_shift($parts);
+      }
+      $uri = '/'.implode('/', $parts);
+
+	    self::$dic->log->debug(__CLASS__, "requestmethod: $requestMethod uri: $uri");
       self::authorize();
-      $rest = new Rest($server['REQUEST_URI'], $request);
+      $rest = new Rest($uri, $request);
       $result = $rest->$requestMethod();
       return Json::encode($result);
     }

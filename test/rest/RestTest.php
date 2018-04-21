@@ -30,11 +30,23 @@ class RestTest extends PHPUnit_Framework_TestCase {
 		$result = json_decode($json);
 
 		$server['REQUEST_METHOD'] = 'GET';
-		$server['REQUEST_URI'] = '/rest/Sample/'.$result->uid;
-		$json = Rest::run($server, array());
-		$this->assertStringStartsWith('{"Sample":', $json);
-		$object = json_decode($json);
-		$this->assertEquals('kurt', $object->Sample->name);
+		$uris = ['/rest/Sample/'.$result->uid, '/a/b/c/rest/Sample/'.$result->uid];
+		foreach ($uris as $uri) {
+			$server['REQUEST_URI'] = $uri;
+			$json = Rest::run($server, array());
+			$this->assertStringStartsWith('{"Sample":', $json);
+			$object = json_decode($json);
+			$this->assertEquals('kurt', $object->Sample->name);
+		}
+
+		try {
+			$server['REQUEST_URI'] = '/not/a/valid/url';
+			Rest::run($server, array());
+			$this->fail('Exception exptected');
+		}
+		catch (RuntimeException $e) {
+			$this->assertContains('rest', $e->getMessage());
+		}
 	}
 
   public function testObjectMethod() {
