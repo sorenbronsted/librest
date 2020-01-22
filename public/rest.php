@@ -1,5 +1,5 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
 require 'settings.php';
 require 'rest/Rest.php';

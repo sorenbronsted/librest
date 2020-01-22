@@ -1,11 +1,11 @@
 <?php
-
-namespace ufds;
+namespace sbronsted;
 
 interface AuthenticatorEnable {
 	/**
 	 * This test if an rest request has access to this system
-	 * @return boolean true on success and false on failure
+	 * @return bool
+	 * 	True on success otherwise false
 	 */
-	public function hasAccess();
+	public function hasAccess() : bool ;
 }

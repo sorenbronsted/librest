@@ -1,11 +1,11 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
 $loader = require 'vendor/autoload.php';
-$loader->addPsr4('ufds\\', __DIR__.'/utils');
+$loader->addPsr4('sbronsted\\', __DIR__.'/utils');
 
 date_default_timezone_set("Europe/Copenhagen");
-openlog("ufds-librest", LOG_PID | LOG_CONS, LOG_LOCAL0);
+openlog("librest", LOG_PID | LOG_CONS, LOG_LOCAL0);
 
 $dic = DiContainer::instance();
 $dic->config = new Config2('test/librest.ini');

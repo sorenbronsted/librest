@@ -1,8 +1,8 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
-use ErrorException;
 use ReflectionClass;
+use ErrorException;
 use ReflectionMethod;
 use RuntimeException;
 
@@ -74,7 +74,7 @@ class Rest {
       return Json::encode($result);
     }
     catch (ValidationException $e) {
-      return json_encode(array("error" => $e->errors()));
+      return json_encode(array("error" => $e->validations()));
     }
     catch (ApplicationException $e) {
       return json_encode(array("error" => $e->getMessage()));
@@ -183,10 +183,14 @@ class Rest {
     if (count($tmp) <= 2 || count($tmp) > 5) {
       throw new ErrorException("Invalid url $this->uri");
     }
-    
-    $this->cls = 'ufds\\'.$tmp[2]; //TODO consider that class contains namespace also eg. ufds/Sample
+
+    $name = self::$dic->config->rest_namespace;
+    if (empty($name)) {
+			throw new RuntimeException('You must provide name of namespace in section rest of config');
+		}
+		$this->cls = $name.'\\'.$tmp[2];
 	  $inspect = new ReflectionClass($this->cls);
-	  if (!in_array('ufds\RestEnable', $inspect->getInterfaceNames())) {
+	  if (!in_array(RestEnable::class, $inspect->getInterfaceNames())) {
 			throw new RuntimeException($this->cls.' does not implement RestEnable');
 	  }
 

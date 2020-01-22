@@ -1,7 +1,7 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
-require '../vendor/autoload.php'; // Use composer autoloading
+require dirname(__DIR__).'/vendor/autoload.php'; // Use composer autoloading
 
 date_default_timezone_set("Europe/Copenhagen");
 openlog("your-maske", LOG_PID | LOG_CONS, LOG_LOCAL0); // Requires LOG_LOCAL0 configured

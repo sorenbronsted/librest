@@ -1,5 +1,5 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
 class Sample extends DbObject implements RestEnable, JsonEnable {
 	private static $properties = array(
@@ -20,11 +20,11 @@ class Sample extends DbObject implements RestEnable, JsonEnable {
 		return (object)array('mesg' => $mesg);
 	}
 
-	protected function getProperties() {
+	protected function getProperties() : array {
 		return self::$properties;
 	}
 
-	public function jsonEncode(array $data) {
+	public function jsonEncode(array $data) : array {
 		$data['date'] = Date::parse('01-11-2011');
 		return $data;
 	}

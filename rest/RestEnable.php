@@ -1,48 +1,53 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
 /**
- * Interface RestEnable are methods required for makeing an object rest enable
+ * Interface RestEnable are methods required for making an object rest enable
  */
 interface RestEnable {
 	/**
 	 * Get an object by a given class and uid.
-	 * @param $uid uniq identifier for an object
-	 * @return RestEnable object
+	 * @param $uid
+	 * 	The uniq identifier for an object
+	 * @return RestEnable
+	 * 	The object
 	 */
-	public static function getByUid($uid);
+	public static function getByUid(int $uid) : object;
 
 	/**
 	 * Get a list of objects by a given class which match all the properties in $qbe (QueryByExample)
-	 * @param $qbe a map of properties to match
-	 * @param $order an array properties to order by
-	 * @return array of RestEnable objects
+	 * @param $qbe
+	 * 	A map of properties to match
+	 * @param $order
+	 * 	An array properties to order by
+	 * @return array
+	 * 	An array of RestEnable objects
 	 */
-	public static function getBy(array $qbe, array $order);
+	public static function getBy(array $qbe, array $order) : iterable;
 
 	/**
 	 * Get all objects for an given class
-	 * @param $order an array properties to order by
-	 * @return array of RestEnable objects
+	 * @param $order
+	 * 	An array properties to order by
+	 * @return array
+	 * 	An array of RestEnable objects
 	 */
-	public static function getAll(array $order);
+	public static function getAll(array $order) : iterable;
 
 	/**
 	 * Set the properties of a given class
-	 * @param $data a map properties and values
-	 * @return none
+	 * @param $data
+	 * 	A map properties and values
 	 */
-	public function setData(array $data);
+	public function setData(array $data) : void ;
 
 	/**
 	 * Persist the object
-	 * @return map with the uid
 	 */
-	public function save();
+	public function save() : void ;
 
 	/**
-	 * Delete a given object
-	 * @return none
+	 * Deletes a given object
 	 */
-	public function destroy();
+	public function destroy() : void;
 }

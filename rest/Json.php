@@ -1,10 +1,10 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
 use stdClass;
 
 class Json {
-	public static function encode($item) {
+	public static function encode($item) : string {
 		$result = "";
 		if (is_array($item)) {
 			$result .= "[";
@@ -24,11 +24,11 @@ class Json {
 			if ($item instanceof JsonEnable) {
 				$data = $item->jsonEncode($data);
 			}
-			$tmp = array();
+			$tmp = ['class' => $item->getClass()];
 			foreach($data as $key => $value) {
 				$tmp[$key] = (is_object($value) ? strval($value) : $value);
 			}
-			return '{"'.$item->getClass().'":'.json_encode($tmp).'}';
+			return json_encode($tmp);
 		}
 		else if ($item instanceof stdClass) {
 			return json_encode($item);

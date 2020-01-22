@@ -1,12 +1,12 @@
 <?php
-namespace ufds;
+namespace sbronsted;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
 require 'test/settings.php';
 
-class JsonTest extends PHPUnit_Framework_TestCase {
+class JsonTest extends TestCase {
 
 	public function testArray() {
 		$a = array('t1', 't2', null);
@@ -28,6 +28,6 @@ class JsonTest extends PHPUnit_Framework_TestCase {
 
 	public function testJsonEnable() {
 		$o = new Sample();
-		$this->assertEquals('{"Sample":{"uid":0,"name":null,"date":"2011-11-01"}}', Json::encode($o));
+		$this->assertEquals('{"class":"Sample","uid":0,"name":null,"date":"2011-11-01"}', Json::encode($o));
 	}
 }

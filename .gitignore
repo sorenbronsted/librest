@@ -10,3 +10,4 @@ public/client/main.dart.*
 *.sql.gz
 *.tgz
 *~
+.phpunit.result.cache
