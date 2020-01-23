@@ -26,8 +26,13 @@ class JsonTest extends TestCase {
 		$this->assertEquals('{"p1":"test","p2":10,"p3":null}', Json::encode($o));
 	}
 
-	public function testJsonEnable() {
+	public function testDbObject() {
 		$o = new Sample();
 		$this->assertEquals('{"class":"Sample","uid":0,"name":null,"date":"2011-11-01"}', Json::encode($o));
+	}
+
+	public function testJsonEnabled() {
+		$o = new OnlyJsonEnabled();
+		$this->assertEquals('{"key":"value"}', Json::encode($o));
 	}
 }

@@ -34,7 +34,7 @@ class Json {
 			return json_encode($item);
 		}
 		else if ($item instanceof JsonEnable) {
-			return $item->jsonEncode([]);
+			return json_encode($item->jsonEncode([]));
 		}
 		else {
 			return json_encode($item);
