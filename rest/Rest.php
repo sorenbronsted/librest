@@ -15,21 +15,6 @@ class Rest {
 	private static $dic;
   private static $allowedMethods = array("get", "delete", "post");
 
-  /**
-   * The uri can have the following forms:
-   * 
-   * /rest/class/uid            returns a object by the given object or delete it
-   * 
-   * /rest/class/uid/method     which returns the result of calling the method
-   *                            on the object specified by the uid. Parameters to method are parsed as paramters
-   *                                            
-   * /rest/class/method         which returns the result of calling the static method on the class
-   *                                            
-   * /rest/class?name=value&... which return an array of objects which all qualifies with
-   *                            the name-value pair set
-   *                                            
-   * /rest/class                will return object of the given cls or create or update it
-   */
   public function __construct($uri, array $arg = array()) {
     set_error_handler(array(__CLASS__, 'throwError'), E_ALL | E_STRICT);
     

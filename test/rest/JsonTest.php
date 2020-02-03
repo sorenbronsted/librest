@@ -14,6 +14,13 @@ class JsonTest extends TestCase {
 		$this->assertEquals('["t1","t2",null]', $v);
 	}
 
+	public function testArrayOfMaps() {
+		$a[] = (object)['a' => 1, 'b' => 'test1'];
+		$a[] = (object)['a' => 2, 'b' => 'test2'];
+		$v = Json::encode($a);
+		$this->assertEquals(json_encode($a), $v);
+	}
+
 	public function testDefault() {
 		$this->assertEquals('10', Json::encode(10));
 	}
